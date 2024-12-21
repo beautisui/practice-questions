@@ -20,11 +20,19 @@ const uppercaseOf = function (strings) {
 };
 
 // first characters of ["apple", "banana", "kiwi"] => ["a", "b", "k"]
-const firstCharactersOf = function (strings) { };
+const firstCharactersOf = function (strings) {
+  return strings.map(function (str) {
+    return str.at(0);
+  })
+};
 
 // truth values of [0, 1, 2, 3] => [false, true, true, true]
 // Assume non-zero numbers are true, and zero is false
-const truthValuesOf = function (numbers) { };
+const truthValuesOf = function (numbers) {
+  return numbers.map(function (value) {
+    return Boolean(value);
+  })
+};
 
 // reverse strings of ["hello", "world"] => ["olleh", "dlrow"]
 const reversedStringsOf = function (strings) { };
@@ -427,6 +435,20 @@ function testToUpperCase(failed) {
   testMapFunctions(uppercaseOf, ["hello", "good", "mrng"], ["HELLO", "GOOD", "MRNG"], failed);
 }
 
+function testFirstChar(failed) {
+  testMapFunctions(firstCharactersOf, ["hello"], ["h"], failed);
+  testMapFunctions(firstCharactersOf, ["hello", "good", "hi"], ["h", "g", "h"], failed);
+}
+
+function testTruthValue(failed) {
+  testMapFunctions(truthValuesOf, [0], [false], failed);
+  testMapFunctions(truthValuesOf, [1], [true], failed);
+  testMapFunctions(truthValuesOf, [0, 1], [false, true], failed);
+  testMapFunctions(truthValuesOf, [0, 1, 5], [false, true, true], failed);
+  testMapFunctions(truthValuesOf, [1, 5, 0], [true, true, false], failed);
+  testMapFunctions(truthValuesOf, [100, 1, 5], [true, true, true], failed);
+}
+
 const displayResult = function (failed) {
   if (failed.length === 0) {
     console.log("all test pass!");
@@ -441,6 +463,8 @@ const testAll = function () {
   testSquare(failed);
   testStrLength(failed);
   testToUpperCase(failed);
+  testFirstChar(failed);
+  testTruthValue(failed);
 
   displayResult(failed);
 }();
