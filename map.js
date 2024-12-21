@@ -1,5 +1,10 @@
 // squares of [1, 2, 3] => [1, 4, 9]
-const squaresOf = function (numbers) { };
+const squaresOf = function (numbers) {
+  return numbers.map(function (element) {
+    return Math.pow(element, 2);
+  })
+};
+
 
 // lengths of ["apple", "banana", "kiwi"] => [5, 6, 4]
 const lengthsOf = function (strings) { };
@@ -373,3 +378,48 @@ const summarizeBookChapters = function (books) { };
 // [{name: "Concert", attendees: [{firstName: "John", lastName: "Doe"}, {firstName: "Jane", lastName: "Smith"}]}, {name: "Conference", attendees: [{firstName: "Bob", lastName: "Brown"}]}]
 // => [{name: "Concert", attendees: ["John Doe", "Jane Smith"]}, {name: "Conference", attendees: ["Bob Brown"]}]
 const getEventAttendees = function (events) { };
+
+//*******************TEST FUNCTION******************************
+
+const areEveryElementSame = function (array1, array2) {
+  return array1.every(function (element, index) {
+    return element === array2[index];
+  });
+}
+
+function areEqual(array1, array2) {
+  if (array1.length !== array2.length) {
+    return false;
+  }
+
+  return areEveryElementSame(array1, array2);
+}
+
+const testMapFunctions = function (fnName, argument, expacted, failed) {
+  const actual = fnName(argument);
+
+  if (!areEqual(actual, expacted)) {
+    failed.push([actual, expacted]);
+  }
+}
+
+function testSq(failed) {
+  testMapFunctions(squaresOf, [1], [1], failed);
+  testMapFunctions(squaresOf, [1, 2, 3], [1, 4, 9], failed);
+  testMapFunctions(squaresOf, [1, 2, 3, 4, 5, 6], [1, 4, 9, 16, 25, 36], failed);
+}
+
+const displayResult = function (failed) {
+  if (failed.length === 0) {
+    console.log("all test pass!\n");
+    return;
+  }
+
+  console.table(failed);
+}
+
+const testAll = function () {
+  const failed = [];
+  testSq(failed);
+  displayResult(failed);
+}();
