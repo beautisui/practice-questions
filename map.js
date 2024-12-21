@@ -69,13 +69,17 @@ const charCodesOf = function (strings) {
 
 // extract domain names from ["user1@gmail.com", "admin@yahoo.com"] => ["gmail.com", "yahoo.com"]
 const domainNamesOf = function (emails) {
-  return emails.map(function (mail) {
-    return mail.slice(mail.indexOf("@") + 1);
+  return emails.map(function (domain) {
+    return domain.slice(domain.indexOf("@") + 1);
   })
 };
 
-// split words in ["hello world", "goodbye moon"] => [["hello", "world"], ["goodbye", "moon"]]
-const splitWordsOf = function (strings) { };
+// split words in ["hello world", "goodbye moon"] => [["hello", "world"], ["goodbye", "moon"]];
+const splitWordsOf = function (strings) { 
+  return strings.map(function (str) {
+    return str.split(" ");
+  });
+};
 
 // join arrays of [["a", "b"], ["c", "d"]] => ["ab", "cd"]
 const joinedArraysOf = function (arrayOfArrays) { };
@@ -495,10 +499,15 @@ function testcharCodes(failed) {
   testMapFunctions(charCodesOf, ["b", "a"], [98, 97], failed);
 }
 
-function domainNames(failed) {
+function testdDomainNames(failed) {
   testMapFunctions(domainNamesOf, ["beauti@gmail.com"], ["gmail.com"], failed);
   testMapFunctions(domainNamesOf, ["b@gmail.com"], ["gmail.com"], failed);
   testMapFunctions(domainNamesOf, ["b@g.com"], ["g.com"], failed);
+}
+
+function testSplitWord(failed) {
+  testMapFunctions(splitWordsOf, ["i am a girl"], [["i", "am", "a", "girl"]], failed);
+  testMapFunctions(splitWordsOf, ["hello world", "goodbye moon"],[["hello", "world"], ["goodbye", "moon"]], failed);
 }
 
 const displayResult = function (failed) {
@@ -521,7 +530,8 @@ const testAll = function () {
   testDoubleLetterStr(failed);
   testNegatedBoolean(failed);
   testcharCodes(failed);
-  domainNames(failed);
+  testdDomainNames(failed);
+  testSplitWord(failed);
 
   displayResult(failed);
 }();
