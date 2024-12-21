@@ -42,7 +42,15 @@ const reversedStringsOf = function (strings) {
 };
 
 // double letters of ["cat", "dog", "bat"] => ["ccaat", "ddoog", "bbaatt"]
-const doubleLettersOf = function (strings) { };
+const doubleLetterStr = function (str) {
+  return [...str].map(function (char) {
+    return char + char;
+  }).join("");
+}
+
+const doubleLettersOf = function (strings) {
+  return strings.map(doubleLetterStr);
+}
 
 // boolean negation of [true, false, true] => [false, true, false]
 const negatedBooleansOf = function (booleans) { };
@@ -459,6 +467,11 @@ function testReverseWord(failed) {
   testMapFunctions(reversedStringsOf, ["hello", "world"], ["olleh", "dlrow"], failed);
 }
 
+function testDoubleLetterStr(failed) {
+  testMapFunctions(doubleLettersOf, ["hello"], ["hheelllloo"], failed);
+  testMapFunctions(doubleLettersOf, ["hello", "beauti"], ["hheelllloo", "bbeeaauuttii"], failed);
+}
+
 const displayResult = function (failed) {
   if (failed.length === 0) {
     console.log("all test pass!");
@@ -476,6 +489,7 @@ const testAll = function () {
   testFirstChar(failed);
   testTruthValue(failed);
   testReverseWord(failed);
+  testDoubleLetterStr(failed);
 
   displayResult(failed);
 }();
