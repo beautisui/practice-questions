@@ -35,7 +35,11 @@ const truthValuesOf = function (numbers) {
 };
 
 // reverse strings of ["hello", "world"] => ["olleh", "dlrow"]
-const reversedStringsOf = function (strings) { };
+const reversedStringsOf = function (strings) {
+  return strings.map(function (str) {
+    return [...str].reverse().join("");
+  })
+};
 
 // double letters of ["cat", "dog", "bat"] => ["ccaat", "ddoog", "bbaatt"]
 const doubleLettersOf = function (strings) { };
@@ -449,6 +453,12 @@ function testTruthValue(failed) {
   testMapFunctions(truthValuesOf, [100, 1, 5], [true, true, true], failed);
 }
 
+function testReverseWord(failed) {
+  testMapFunctions(reversedStringsOf, ["hello"], ["olleh"], failed);
+  testMapFunctions(reversedStringsOf, ["hello world"], ["dlrow olleh"], failed);
+  testMapFunctions(reversedStringsOf, ["hello", "world"], ["olleh", "dlrow"], failed);
+}
+
 const displayResult = function (failed) {
   if (failed.length === 0) {
     console.log("all test pass!");
@@ -465,6 +475,7 @@ const testAll = function () {
   testToUpperCase(failed);
   testFirstChar(failed);
   testTruthValue(failed);
+  testReverseWord(failed);
 
   displayResult(failed);
 }();
