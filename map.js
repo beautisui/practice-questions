@@ -61,10 +61,18 @@ const negatedBooleansOf = function (booleans) {
 
 // character codes of ["a", "b", "c"] => [97, 98, 99]
 // Use the `charCodeAt` method on each string
-const charCodesOf = function (strings) { };
+const charCodesOf = function (strings) {
+  return strings.map(function (char) {
+    return char.charCodeAt();
+  });
+};
 
 // extract domain names from ["user1@gmail.com", "admin@yahoo.com"] => ["gmail.com", "yahoo.com"]
-const domainNamesOf = function (emails) { };
+const domainNamesOf = function (emails) {
+  return emails.map(function (mail) {
+    return mail.slice(mail.indexOf("@") + 1);
+  })
+};
 
 // split words in ["hello world", "goodbye moon"] => [["hello", "world"], ["goodbye", "moon"]]
 const splitWordsOf = function (strings) { };
@@ -482,6 +490,17 @@ function testNegatedBoolean(failed) {
   testMapFunctions(negatedBooleansOf, [true, false], [false, true], failed);
 }
 
+function testcharCodes(failed) {
+  testMapFunctions(charCodesOf, ["a"], [97], failed);
+  testMapFunctions(charCodesOf, ["b", "a"], [98, 97], failed);
+}
+
+function domainNames(failed) {
+  testMapFunctions(domainNamesOf, ["beauti@gmail.com"], ["gmail.com"], failed);
+  testMapFunctions(domainNamesOf, ["b@gmail.com"], ["gmail.com"], failed);
+  testMapFunctions(domainNamesOf, ["b@g.com"], ["g.com"], failed);
+}
+
 const displayResult = function (failed) {
   if (failed.length === 0) {
     console.log("all test pass!");
@@ -501,6 +520,8 @@ const testAll = function () {
   testReverseWord(failed);
   testDoubleLetterStr(failed);
   testNegatedBoolean(failed);
+  testcharCodes(failed);
+  domainNames(failed);
 
   displayResult(failed);
 }();
