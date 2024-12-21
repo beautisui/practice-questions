@@ -5,9 +5,10 @@ const squaresOf = function (numbers) {
   })
 };
 
-
 // lengths of ["apple", "banana", "kiwi"] => [5, 6, 4]
-const lengthsOf = function (strings) { };
+const lengthsOf = function (strings) {
+  return strings.map(function (str) { return str.length });
+};
 
 // uppercase of ["hello", "world"] => ["HELLO", "WORLD"]
 const uppercaseOf = function (strings) { };
@@ -403,7 +404,13 @@ const testMapFunctions = function (fnName, argument, expacted, failed) {
   }
 }
 
-function testSq(failed) {
+function testStrLength(failed) {
+  testMapFunctions(lengthsOf, ["b"], [1], failed);
+  testMapFunctions(lengthsOf, ["apple"], [5], failed);
+  testMapFunctions(lengthsOf, ["apple", "banana", "kiwi"], [5, 6, 4], failed);
+}
+
+function testSquare(failed) {
   testMapFunctions(squaresOf, [1], [1], failed);
   testMapFunctions(squaresOf, [1, 2, 3], [1, 4, 9], failed);
   testMapFunctions(squaresOf, [1, 2, 3, 4, 5, 6], [1, 4, 9, 16, 25, 36], failed);
@@ -420,6 +427,8 @@ const displayResult = function (failed) {
 
 const testAll = function () {
   const failed = [];
-  testSq(failed);
+  testSquare(failed);
+  testStrLength(failed);
+
   displayResult(failed);
 }();
