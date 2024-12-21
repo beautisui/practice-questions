@@ -75,7 +75,7 @@ const domainNamesOf = function (emails) {
 };
 
 // split words in ["hello world", "goodbye moon"] => [["hello", "world"], ["goodbye", "moon"]];
-const splitWordsOf = function (strings) { 
+const splitWordsOf = function (strings) {
   return strings.map(function (str) {
     return str.split(" ");
   });
@@ -507,7 +507,7 @@ function testdDomainNames(failed) {
 
 function testSplitWord(failed) {
   testMapFunctions(splitWordsOf, ["i am a girl"], [["i", "am", "a", "girl"]], failed);
-  testMapFunctions(splitWordsOf, ["hello world", "goodbye moon"],[["hello", "world"], ["goodbye", "moon"]], failed);
+  testMapFunctions(splitWordsOf, ["hello world", "goodbye moon"], [["hello", "world"], ["goodbye", "moon"]], failed);
 }
 
 const displayResult = function (failed) {
