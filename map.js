@@ -53,7 +53,11 @@ const doubleLettersOf = function (strings) {
 }
 
 // boolean negation of [true, false, true] => [false, true, false]
-const negatedBooleansOf = function (booleans) { };
+const negatedBooleansOf = function (booleans) {
+  return booleans.map(function (value) {
+    return !value;
+  });
+};
 
 // character codes of ["a", "b", "c"] => [97, 98, 99]
 // Use the `charCodeAt` method on each string
@@ -472,6 +476,12 @@ function testDoubleLetterStr(failed) {
   testMapFunctions(doubleLettersOf, ["hello", "beauti"], ["hheelllloo", "bbeeaauuttii"], failed);
 }
 
+function testNegatedBoolean(failed) {
+  testMapFunctions(negatedBooleansOf, [true], [false], failed);
+  testMapFunctions(negatedBooleansOf, [false], [true], failed);
+  testMapFunctions(negatedBooleansOf, [true, false], [false, true], failed);
+}
+
 const displayResult = function (failed) {
   if (failed.length === 0) {
     console.log("all test pass!");
@@ -490,6 +500,7 @@ const testAll = function () {
   testTruthValue(failed);
   testReverseWord(failed);
   testDoubleLetterStr(failed);
+  testNegatedBoolean(failed);
 
   displayResult(failed);
 }();
