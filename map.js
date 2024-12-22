@@ -82,7 +82,11 @@ const splitWordsOf = function (strings) {
 };
 
 // join arrays of [["a", "b"], ["c", "d"]] => ["ab", "cd"]
-const joinedArraysOf = function (arrayOfArrays) { };
+const joinedArraysOf = function (arrayOfArrays) {
+  return arrayOfArrays.map(function (elemennts) {
+    return elemennts.join("");
+  })
+};
 
 // repeat strings in ["hi", "bye"] => ["hihi", "byebye"]
 const repeatedStringsOf = function (strings) { };
@@ -510,6 +514,11 @@ function testSplitWord(failed) {
   testMapFunctions(splitWordsOf, ["hello world", "goodbye moon"], [["hello", "world"], ["goodbye", "moon"]], failed);
 }
 
+function testJoinArray(failed) {
+  testMapFunctions(joinedArraysOf, [["hello", "world"]], ["helloworld"], failed);
+  testMapFunctions(joinedArraysOf, [["th", "e"], ["a", "b", "c"]], ["the", "abc"], failed);
+}
+
 const displayResult = function (failed) {
   if (failed.length === 0) {
     console.log("all test pass!");
@@ -532,6 +541,7 @@ const testAll = function () {
   testcharCodes(failed);
   testdDomainNames(failed);
   testSplitWord(failed);
+  testJoinArray(failed);
 
   displayResult(failed);
 }();
