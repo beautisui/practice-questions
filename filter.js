@@ -9,7 +9,7 @@ const filterEvenNumbers = function (numbers) {
 const filterLongWords = function (words) {
   return words.filter(function (str) {
     return str.length > 5;
-  })
+  });
 };
 
 // people older than 30 [{name: "Alice", age: 25}, {name: "Bob", age: 35}] => [{name: "Bob", age: 35}]
@@ -20,13 +20,25 @@ const filterAdults = function (people) {
 };
 
 // active users [{username: "alice", active: true}, {username: "bob", active: false}] => [{username: "alice", active: true}]
-const filterActiveUsers = function (users) { };
+const filterActiveUsers = function (users) {
+  return users.filter(function (user) {
+    return user.active;
+  });
+};
 
 // numbers greater than 10 [5, 12, 7, 18, 3] => [12, 18]
-const filterNumbersGreaterThanTen = function (numbers) { };
+const filterNumbersGreaterThanTen = function (numbers) {
+  return numbers.filter(function (number) {
+    return number > 10;
+  });
+};
 
 // books with more than 200 pages [{title: "Book 1", pages: 150}, {title: "Book 2", pages: 250}] => [{title: "Book 2", pages: 250}]
-const filterLongBooks = function (books) { };
+const filterLongBooks = function (books) {
+  return books.filter(function (book) {
+    return book.pages > 200;
+  });
+};
 
 // users with incomplete profiles [{username: "alice", profileComplete: true}, {username: "bob", profileComplete: false}] => [{username: "bob", profileComplete: false}]
 const filterIncompleteProfiles = function (users) { };
@@ -398,6 +410,21 @@ function testFilterAdults(failed) {
   testFilterFunction(filterAdults, [{ name: "beauti", age: 90 }, { name: "Priya", age: 31 }], [{ name: "beauti", age: 90 }, { name: "priya", age: 31 }], failed);
 }
 
+function testFilterActiveUsers(failed) {
+  testFilterFunction(filterActiveUsers, [{ name: "a", active: true }], [{ name: "a", active: true }], failed);
+  testFilterFunction(filterActiveUsers, [{ name: "a", active: false }, { name: "b", active: true }], [{ name: "b", active: true }], failed);
+}
+
+function testNumbersGreaterThanTen(failed) {
+  testFilterFunction(filterNumbersGreaterThanTen, [1, 2, 11], [11], failed);
+  testFilterFunction(filterNumbersGreaterThanTen, [11, 10, 12, 13], [11, 12, 13], failed);
+  testFilterFunction(filterNumbersGreaterThanTen, [1, 2, 3], [], failed);
+}
+
+function testFillerBooks(failed) {
+  testFilterFunction(filterLongBooks, [{ title: "Book 1", pages: 150 }, { title: "Book 2", pages: 250 }], [{ title: "Book 2", pages: 250 }], failed);
+}
+
 const displayResult = function (failed) {
   if (failed.length === 0) {
     console.log("all test pass!");
@@ -412,6 +439,9 @@ const testAll = function () {
   testEvens(failed);
   testFilerWordByLength(failed);
   testFilterAdults(failed);
+  testFilterActiveUsers(failed);
+  testNumbersGreaterThanTen(failed);
+  testFillerBooks(failed);
 
   displayResult(failed);
 }();
