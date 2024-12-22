@@ -1,5 +1,9 @@
 // even numbers [1, 2, 3, 4, 5] => [2, 4]
-const filterEvenNumbers = function (numbers) { };
+const filterEvenNumbers = function (numbers) {
+  return numbers.filter(function (num) {
+    return (num & 1) === 0;
+  });
+};
 
 // words with more than 5 letters ["apple", "banana", "kiwi", "grape"] => ["banana"]
 const filterLongWords = function (words) { };
@@ -215,13 +219,13 @@ const filterUsersByPostComments = function (users, minComments) { };
 const filterUsersByPostCategory = function (users, category) { };
 
 // Filter users who have a certain number of followers and have posted in the last 30 days [{user: {name: "Tom", followers: 1000, lastPostDate: "2024-11-10"}}] => [{user: {name: "Tom", followers: 1000, lastPostDate: "2024-11-10"}}]
-const filterActiveUsers = function (users, minFollowers, daysAgo) { };
+// const filterActiveUsers = function (users, minFollowers, daysAgo) { };
 
 // Filter posts that have at least one hashtag from a list of trending hashtags [{post: {title: "Post 1", hashtags: ["#food", "#vegan"]}}] => [{post: {title: "Post 1", hashtags: ["#food", "#vegan"]}}]
 const filterPostsByHashtags = function (posts, trendingHashtags) { };
 
 // Filter users who have shared at least one post that received a specific number of likes [{user: {name: "Lucy", posts: [{title: "Post 1", likes: 500}, {title: "Post 2", likes: 100}]}}] => [{user: {name: "Lucy", posts: [{title: "Post 1", likes: 500}, {title: "Post 2", likes: 100}]}}]
-const filterUsersByPostLikes = function (users, minLikes) { };
+// const filterUsersByPostLikes = function (users, minLikes) { };
 
 // Filter posts that have a certain number of comments and are from a specific location [{post: {title: "Post 1", comments: 150, location: "Paris"}}] => [{post: {title: "Post 1", comments: 150, location: "Paris"}}]
 const filterPostsByCommentsAndLocation = function (posts, minComments, location) { };
@@ -337,3 +341,53 @@ const findInStockItems = function (items, lookup) { };
 // Input: ["Lion", "Elephant", "Shark"], { "Lion": { habitat: "Jungle" }, "Elephant": { habitat: "Jungle" }, "Shark": { habitat: "Ocean" } } , "Jungle"
 // Output: ["Lion", "Elephant"]
 const findAnimalsByHabitat = function (animals, lookup) { };
+
+//***************************TEST FUNCTION*******************************
+
+const areEveryElementSame = function (array1, array2) {
+  return array1.every(function (element, index) {
+    return element === array2[index];
+  });
+}
+
+function areEqual(array1, array2) {
+  if (array1.length !== array2.length) {
+    return false;
+  }
+
+  return areEveryElementSame(array1, array2);
+}
+
+const testFilterFunction = function (fnName, argument, expacted, failed) {
+  const actual = fnName(argument);
+
+  if (!areEqual(actual, expacted)) {
+    failed.push([actual, expacted]);
+  }
+}
+
+function testEvens(failed) {
+  testFilterFunction(filterEvenNumbers, [2, 2], [2, 2], failed);
+  testFilterFunction(filterEvenNumbers, [1, 2], [2], failed);
+  testFilterFunction(filterEvenNumbers, [1, 2, 3], [2], failed);
+  testFilterFunction(filterEvenNumbers, [1, 2, 3, 4], [2, 4], failed);
+  testFilterFunction(filterEvenNumbers, [0, 1], [0], failed);
+  testFilterFunction(filterEvenNumbers, [3, 7, 9], [], failed);
+}
+
+const displayResult = function (failed) {
+  if (failed.length === 0) {
+    console.log("all test pass!");
+    return;
+  }
+
+  console.table(failed);
+}
+
+const testAll = function () {
+  const failed = [];
+  testEvens(failed);
+
+
+  displayResult(failed);
+}();
