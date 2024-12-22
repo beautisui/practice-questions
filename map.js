@@ -85,20 +85,54 @@ const splitWordsOf = function (strings) {
 const joinedArraysOf = function (arrayOfArrays) {
   return arrayOfArrays.map(function (elemennts) {
     return elemennts.join("");
-  })
+  });
 };
 
 // repeat strings in ["hi", "bye"] => ["hihi", "byebye"]
-const repeatedStringsOf = function (strings) { };
+const repeatedStringsOf = function (strings) {
+  return strings.map(function (string) {
+    return string + string;
+  });
+};
 
 // count vowels in ["apple", "banana", "grape"] => [2, 3, 2]
-const countVowelsOf = function (strings) { };
+const isVowel = function (char) {
+  const vowels = "aeiouAEIOU"
+  return vowels.includes(char);
+}
+
+const totalVowels = function (str) {
+  return Array.from(str).filter(isVowel).length;
+}
+
+const countVowelsOf = function (strings) {
+  return strings.map(totalVowels);
+}
 
 // reverse arrays of [[1, 2, 3], [4, 5, 6]] => [[3, 2, 1], [6, 5, 4]]
-const reversedArraysOf = function (arrays) { };
+const reversedArraysOf = function (arrays) {
+  return arrays.map(function (array) {
+    return array.reverse();
+  });
+};
 
 // remove vowels from ["apple", "banana", "grape"] => ["ppl", "bnn", "grp"]
-const withoutVowelsOf = function (strings) { };
+
+const complement = function (fn) {
+  return function (...args) {
+    return !fn(...args);
+  }
+}
+
+const isConsonent = complement(isVowel);
+
+const removeVowels = function (str) {
+  return Array.from(str).filter(isConsonent).join("");
+}
+
+const withoutVowelsOf = function (strings) {
+  return strings.map(removeVowels);
+};
 
 // cumulative sums of [[1, 2, 3], [4, 5, 6]] => [[1, 3, 6], [4, 9, 15]]
 // Example: cumulative sum of [1, 2, 3] is [1, 1+2, 1+2+3]
@@ -519,6 +553,10 @@ function testJoinArray(failed) {
   testMapFunctions(joinedArraysOf, [["th", "e"], ["a", "b", "c"]], ["the", "abc"], failed);
 }
 
+function testDoubleWord(failed) {
+  testMapFunctions(repeatedStringsOf, ["he", "be"], ["hehe", "bebe"], failed);
+}
+
 const displayResult = function (failed) {
   if (failed.length === 0) {
     console.log("all test pass!");
@@ -542,6 +580,7 @@ const testAll = function () {
   testdDomainNames(failed);
   testSplitWord(failed);
   testJoinArray(failed);
+  testDoubleWord(failed);
 
   displayResult(failed);
 }();

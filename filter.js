@@ -55,19 +55,33 @@ const filterHighGrades = function (students) {
 };
 
 // products that are in stock [{product: "apple", inStock: true}, {product: "banana", inStock: false}] => [{product: "apple", inStock: true}]
-const filterInStockProducts = function (products) { 
+const filterInStockProducts = function (products) {
   return products.filter(function (productDetails) {
     return productDetails.inStock;
   });
 };
 
 // orders placed in the last 30 days [{orderDate: "2024-11-01"}, {orderDate: "2024-12-01"}] => [{orderDate: "2024-12-01"}]
-const filterRecentOrders = function (orders) { 
-
+const filterRecentOrders = function (orders) {
+  const dateBefore30Days = "2024-11-22";
+  return orders.filter(function (date) {
+    return date.orderDate > dateBefore30Days;
+  });
 };
 
-// products with a price lower than the average [{name: "item1", price: 10}, {name: "item2", price: 20}, {name: "item3", price: 5}] => [{name: "item1", price: 10}, {name: "item3", price: 5}]
-const filterBelowAveragePrice = function (products) { };
+// products with a price lower than the average [{name: "item1", price: 10}, {name: "item2", price: 50}, {name: "item3", price: 5}] => [{name: "item1", price: 10}, {name: "item3", price: 5}];
+
+const sumOfNumbers = function (sum, details) {
+  return sum + details.price;
+}
+
+const filterBelowAveragePrice = function (products) {
+  const average = products.reduce(sumOfNumbers, 0) / products.length;
+
+  return products.filter(function (product) {
+    return product.price < average;
+  });
+};
 
 // active users who posted in the last 7 days [{username: "alice", lastPostDate: "2024-12-01", active: true}, {username: "bob", lastPostDate: "2024-11-20", active: true}] => [{username: "alice", lastPostDate: "2024-12-01", active: true}]
 const filterRecentActiveUsers = function (users) { };
