@@ -44,7 +44,7 @@ const reversedStringsOf = function (strings) {
 // double letters of ["cat", "dog", "bat"] => ["ccaat", "ddoog", "bbaatt"]
 const doubleLetterStr = function (str) {
   return [...str].map(function (char) {
-    return char + char;
+    return char.repeat(2);
   }).join("");
 }
 
@@ -91,7 +91,7 @@ const joinedArraysOf = function (arrayOfArrays) {
 // repeat strings in ["hi", "bye"] => ["hihi", "byebye"]
 const repeatedStringsOf = function (strings) {
   return strings.map(function (string) {
-    return string + string;
+    return string.repeat(2);
   });
 };
 
