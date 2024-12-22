@@ -6,10 +6,18 @@ const filterEvenNumbers = function (numbers) {
 };
 
 // words with more than 5 letters ["apple", "banana", "kiwi", "grape"] => ["banana"]
-const filterLongWords = function (words) { };
+const filterLongWords = function (words) {
+  return words.filter(function (str) {
+    return str.length > 5;
+  })
+};
 
 // people older than 30 [{name: "Alice", age: 25}, {name: "Bob", age: 35}] => [{name: "Bob", age: 35}]
-const filterAdults = function (people) { };
+const filterAdults = function (people) {
+  return people.filter(function (person) {
+    return person.age > 30;
+  });
+};
 
 // active users [{username: "alice", active: true}, {username: "bob", active: false}] => [{username: "alice", active: true}]
 const filterActiveUsers = function (users) { };
@@ -375,6 +383,21 @@ function testEvens(failed) {
   testFilterFunction(filterEvenNumbers, [3, 7, 9], [], failed);
 }
 
+function testFilerWordByLength(failed) {
+  testFilterFunction(filterLongWords, ["hello"], [], failed);
+  testFilterFunction(filterLongWords, ["helloo"], ["helloo"], failed);
+  testFilterFunction(filterLongWords, ["helloo", "a", "b"], ["helloo"], failed);
+  testFilterFunction(filterLongWords, ["helloo", "alphabets", "b"], ["helloo", "alphabets"], failed);
+  testFilterFunction(filterLongWords, ["hello", "iiiiiii", "jjjjjjjj"], ["iiiiiii", "jjjjjjjj"], failed);
+  testFilterFunction(filterLongWords, ["123456", "6"], ["123456"], failed);
+}
+
+function testFilterAdults(failed) {
+  testFilterFunction(filterAdults, [{ name: "beauti", age: 19 }], [], failed);
+  testFilterFunction(filterAdults, [{ name: "beauti", age: 19 }, { name: "Priya", age: 31 }], [{ name: "priya", age: 31 }], failed);
+  testFilterFunction(filterAdults, [{ name: "beauti", age: 90 }, { name: "Priya", age: 31 }], [{ name: "beauti", age: 90 }, { name: "priya", age: 31 }], failed);
+}
+
 const displayResult = function (failed) {
   if (failed.length === 0) {
     console.log("all test pass!");
@@ -387,7 +410,8 @@ const displayResult = function (failed) {
 const testAll = function () {
   const failed = [];
   testEvens(failed);
-
+  testFilerWordByLength(failed);
+  testFilterAdults(failed);
 
   displayResult(failed);
 }();
