@@ -41,10 +41,18 @@ const filterLongBooks = function (books) {
 };
 
 // users with incomplete profiles [{username: "alice", profileComplete: true}, {username: "bob", profileComplete: false}] => [{username: "bob", profileComplete: false}]
-const filterIncompleteProfiles = function (users) { };
+const filterIncompleteProfiles = function (users) {
+  return users.filter(function (user) {
+    return user.profileComplete === false;
+  });
+};
 
 // students with grades above 80 [{name: "John", grade: 75}, {name: "Jane", grade: 85}] => [{name: "Jane", grade: 85}]
-const filterHighGrades = function (students) { };
+const filterHighGrades = function (students) {
+  return students.filter(function (student) {
+    return student.grade > 80;
+  })
+};
 
 // products that are in stock [{product: "apple", inStock: true}, {product: "banana", inStock: false}] => [{product: "apple", inStock: true}]
 const filterInStockProducts = function (products) { };
@@ -425,6 +433,15 @@ function testFillerBooks(failed) {
   testFilterFunction(filterLongBooks, [{ title: "Book 1", pages: 150 }, { title: "Book 2", pages: 250 }], [{ title: "Book 2", pages: 250 }], failed);
 }
 
+function testIncompleteProfile(failed) {
+  testFilterFunction(filterIncompleteProfiles, [{ name: "b", profileComplete: true }], [], failed);
+  testFilterFunction(filterIncompleteProfiles, [{ name: "b", profileComplete: true }, { name: "c", profileComplete: false }], [{ name: "c", profileComplete: false }], failed);
+}
+
+function testfilterHighGrades(failed) {
+  testFilterFunction(filterHighGrades, [{ name: "beauti", grade: 99 }, { name: "a", grade: 70 }], [{ name: "beauti", grade: 99 }], failed);
+}
+
 const displayResult = function (failed) {
   if (failed.length === 0) {
     console.log("all test pass!");
@@ -442,6 +459,8 @@ const testAll = function () {
   testFilterActiveUsers(failed);
   testNumbersGreaterThanTen(failed);
   testFillerBooks(failed);
+  testIncompleteProfile(failed);
+  testfilterHighGrades(failed);
 
   displayResult(failed);
 }();
